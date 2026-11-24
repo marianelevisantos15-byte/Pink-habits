@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>little habits</title>
+<style>
+html,body{margin:0;height:100%;background:#FFF9FC;}
+body{font-family:Georgia,"Times New Roman",serif;color:#92536F;display:flex;align-items:center;justify-content:center;}
+.c{text-align:center;padding:18px 16px;max-width:380px;background:#F7E6F0;border-radius:18px;box-sizing:border-box;width:calc(100% - 32px);}
+.k{font-size:11px;letter-spacing:3px;text-transform:uppercase;opacity:.65}
+.h{font-style:italic;font-size:21px;margin:6px 0 2px}
+.w{font-size:13px;font-style:italic;color:#B17896;min-height:18px}
+.line{width:40px;height:1px;background:#D9A8C2;margin:12px auto}
+.g{font-size:26px;letter-spacing:2px;cursor:pointer;user-select:none;margin:4px 0}
+.s{font-size:12px;letter-spacing:2px;text-transform:lowercase;opacity:.7}
+button{font-family:inherit;font-size:13px;border:1px solid #D9A8C2;background:#FFF9FC;color:#92536F;border-radius:20px;padding:5px 14px;margin:6px 3px 0;cursor:pointer}
+button:hover{background:#FCECF5}
+</style></head>
+<body><div class="c">
+<div class="k">today's tiny habit</div>
+<div class="h" id="h"></div>
+<div class="w" id="w"></div>
+<button onclick="nextH()">another one</button>
+<div class="line"></div>
+<div class="k">water, one tap per glass</div>
+<div class="g" id="g" onclick="sip()"></div>
+<div class="s" id="s"></div>
+<button onclick="reset()">start over</button>
+</div>
+<script>
+var H=[["drink a glass of water before coffee","your brain is 75% water, be kind to it"],["make your bed","one small win before 8 am"],["two minutes of stretching","your body will thank you tonight"],["read ten pages","ten pages a day is a book a month"],["step outside for sunlight","morning light helps you sleep better"],["write one line about today","tiny journals become big memories"],["tidy one small surface","a calm space, a calm mind"],["phone away at dinner","be where your feet are"],["night skincare, even the lazy version","consistency beats perfection"],["plan tomorrow's top 3","wake up already knowing"],["walk after a meal","ten minutes is plenty"],["no phone for the first 20 minutes","let your morning be yours"],["say one kind thing to yourself","you hear everything you say"],["put your clothes out for tomorrow","future you says thank you"],["one song, full dance break","joy counts as a habit too"],["breathe slowly for one minute","in for four, out for six"],["write down one thing you are grateful for","specific, not general"],["lights low an hour before bed","sleep starts before you lie down"],["eat one extra portion of green","small swaps add up"],["check your savings jar","every little bit is a step"]];
+var d=new Date(),doy=Math.floor((d-new Date(d.getFullYear(),0,0))/864e5),i=doy%H.length,n=0,key="hg-"+d.toDateString();
+function showH(){document.getElementById("h").textContent=H[i][0];document.getElementById("w").textContent=H[i][1];}
+function nextH(){i=(i+1)%H.length;showH();}
+function load(){try{n=parseInt(localStorage.getItem(key)||"0",10)||0;}catch(e){n=0;}}
+function save(){try{localStorage.setItem(key,String(n));}catch(e){}}
+function draw(){var t="";for(var k=0;k<8;k++)t+=k<n?"💗":"🤍";document.getElementById("g").textContent=t;
+document.getElementById("s").textContent=n>=8?"all eight. glowing.":n+" of 8 glasses";}
+function sip(){n=n>=8?8:n+1;save();draw();}
+function reset(){n=0;save();draw();}
+showH();load();draw();
+</script></body></html>
